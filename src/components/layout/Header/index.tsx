@@ -1,31 +1,26 @@
 import { Container, Nav, NavDropdown, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { IRouteEndpoint, routes } from "../../../routes";
-
-const NavDropdownItemCreator = (route: IRouteEndpoint) => {
-    return (
-        <NavDropdown.Item key={`${route.path}${route.name}`}>
-            <Link className="nav-link" to={route.path}>{route.name}</Link>
-        </NavDropdown.Item>
-    )
-}
+import { routes } from "../../../routes";
 
 const Header = () => {
     return (
         <>
             <Navbar bg="dark" data-bs-theme="dark">
                 <Container>
-                    <Navbar.Brand><Link className="navbar-brand" to={routes[0].path}>{routes[0].name}</Link></Navbar.Brand>
+                    <Navbar.Brand as={Link} to={routes[0].path}>
+                        {routes[0].name}
+                    </Navbar.Brand>
                     <Nav className="me-auto">
                         {
                             routes.slice(1).map(x =>
                                 x.nested ?
                                     <NavDropdown key={x.path} title={x.name}>
                                         {
-                                            x.nested.map(x2 => {
-                                                x2.path = `${x.path}${x2.path}`;
-                                                return NavDropdownItemCreator(x2);
-                                            })
+                                            x.nested.map(x2 =>
+                                                <NavDropdown.Item as={Link} key={`${x2.path}${x2.name}`} to={`${x.path}${x2.path}`}>
+                                                    {x2.name}
+                                                </NavDropdown.Item>
+                                            )
                                         }
                                     </NavDropdown>
                                     :
