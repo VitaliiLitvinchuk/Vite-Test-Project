@@ -1,5 +1,6 @@
 import React from "react";
 import HomePage from "./components/home-page";
+import chapters from "./components/chapters";
 
 const rootPath = "";
 
@@ -25,64 +26,64 @@ export const routes: IRouteEndpoint[] = [
         name: "Chapters",
         nested: [{
             path: `chapters-1`,
-            component: () => <div>Chapter 1</div>,
+            component: chapters.ChapterOne,
             name: "Chapter 1: Basic React",
             nested: null,
         },
         {
             path: `chapters-2`,
-            component: () => <div>Chapter 2</div>,
+            component: chapters.ChapterTwo,
             name: "Chapter 2: UI Components Libraries",
             nested: null,
         },
         {
             path: `chapters-3`,
-            component: () => <div>Chapter 3</div>,
+            component: chapters.ChapterThree,
             name: "Chapter 3: Design the Final Project",
             nested: null,
         },
         {
             path: `chapters-4`,
-            component: () => <div>Chapter 4</div>,
+            component: chapters.ChapterFour,
             name: "Chapter 4: Project structure",
             nested: null,
         },
         {
             path: `chapters-5`,
-            component: () => <div>Chapter 5</div>,
+            component: chapters.ChapterFive,
             name: "Chapter 5: Routing",
             nested: null,
         },
         {
             path: `chapters-6`,
-            component: () => <div>Chapter 6</div>,
+            component: chapters.ChapterSix,
             name: "Chapter 6: Fetching Data (advanced)",
             nested: null,
         },
         {
             path: `chapters-7`,
-            component: () => <div>Chapter 7</div>,
+            component: chapters.ChapterSeven,
             name: "Chapter 7: State Management",
             nested: null,
         },
         {
             path: `chapters-8`,
-            component: () => <div>Chapter 8</div>,
+            component: chapters.ChapterEight,
             name: "Chapter 8: Performance Optimization",
             nested: null,
         }, {
             path: `chapters-9`,
-            component: () => <div>Chapter 9</div>,
+            component: chapters.ChapterNine,
             name: "Chapter 9:  SOLID React",
             nested: null,
         }, {
             path: `chapters-10`,
-            component: () => <div>Chapter 10</div>,
+            component: chapters.ChapterTen,
             name: "Chapter 10: React Frameworks Review (Next.js, Remix, Gatsby)",
             nested: null,
         }, {
             path: `chapters-11`,
-            component: () => <div>Chapter 11</div>,
+            component: chapters.ChapterEleven,
             name: "Chapter 11: HTML, CSS, JS Overview",
             nested: null,
         },],
