@@ -4,7 +4,7 @@ import { IRouteEndpoint, routes } from "../../../routes";
 
 const NavDropdownItemCreator = (route: IRouteEndpoint) => {
     return (
-        <NavDropdown.Item>
+        <NavDropdown.Item key={`${route.path}${route.name}`}>
             <Link className="nav-link" to={route.path}>{route.name}</Link>
         </NavDropdown.Item>
     )
@@ -20,7 +20,7 @@ const Header = () => {
                         {
                             routes.slice(1).map(x =>
                                 x.nested ?
-                                    <NavDropdown title={x.name}>
+                                    <NavDropdown key={x.path} title={x.name}>
                                         {
                                             x.nested.map(x2 => {
                                                 x2.path = `${x.path}${x2.path}`;
@@ -29,7 +29,7 @@ const Header = () => {
                                         }
                                     </NavDropdown>
                                     :
-                                    <Nav.Item>
+                                    <Nav.Item key={x.path}>
                                         <Link className="nav-link" to={x.path}>{x.name}</Link>
                                     </Nav.Item>
                             )
