@@ -1,8 +1,11 @@
+import React, { Suspense } from 'react';
 import { Navigate } from 'react-router-dom';
 import { Routes, Route } from 'react-router';
 import './App.css';
 import Layout from './components/layout';
 import rootPath, { routes } from './routes';
+
+const LazyPage = React.lazy(() => import('./components/chapters/chapter-4'));
 
 const App = () => {
   return (
@@ -27,6 +30,10 @@ const App = () => {
               />
           )
         }
+        <Route
+          key={"chapter-4"}
+          path={"test"}
+          element={<Suspense><LazyPage /></Suspense>} />
       </Route>
       <Route path='*' element={<Navigate to={rootPath} />} />
     </Routes>

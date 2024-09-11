@@ -35,9 +35,9 @@ export const paths = keys.map((_key, index) => `chapter-${index + 1}`);
 if (names.length !== keys.length || keys.length !== amountOfChapters)
     throw new Error("names.length, keys.length, amountOfChapters must be equal");
 
-interface Chapter {
+export interface Chapter {
     name: string;
     component: React.LazyExoticComponent<React.ComponentType>;
 }
 
-export const chapters: Chapter[] = keys.map((key, index) => ({ name: key, component: lazy(() => import(`./${paths[index]}`)) }));
+export const chapters: Chapter[] = keys.map((key, index) => ({ name: key, component: lazy(() => import(`./${paths[index]}/index.tsx`)) }));

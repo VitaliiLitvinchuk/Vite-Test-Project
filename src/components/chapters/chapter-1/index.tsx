@@ -9,7 +9,7 @@ const ChapterOne = () => {
     return (
         <>
             <div>Chapter 1: Basic React {test}</div>
-            <button onClick={() => SetTestValue('test chapter one')}></button>
+            <button className="btn btn-outline-dark w-25 mx-auto" onClick={() => SetTestValue('test chapter one')}><b>Hello world</b></button>
         </>
     )
 }
