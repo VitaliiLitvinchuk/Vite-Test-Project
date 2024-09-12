@@ -15,13 +15,13 @@ const HomePage = () => {
                 </a>
             </div>
             <h1>Vite + React</h1>
-            <div className="card">
+            <div style={{ background: 'inherit' }}>
                 <ButtonCounter />
-                <p>
+                <p className='mt-2'>
                     Edit <code>src/App.tsx</code> and save to test HMR
                 </p>
             </div>
-            <p className="read-the-docs">
+            <p>
                 Click on the Vite and React logos to learn more
             </p>
         </>
