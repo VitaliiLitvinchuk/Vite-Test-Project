@@ -1,4 +1,4 @@
-import { ChapterOneAction, ChapterOneActionTypes, IChapterState } from "./types";
+import { ChapterOneAction, ChapterOneActionTypes, IChapterLab2ToDo, IChapterState } from "./types";
 
 const initialState: IChapterState = {
     lab2ToDo: {
@@ -9,6 +9,10 @@ const initialState: IChapterState = {
         nextIdToDo: 3,
         defaultUserId: 1,
     },
+};
+
+const updateToDoById = (todoList: IChapterLab2ToDo[], id: number, updateFn: (todo: IChapterLab2ToDo) => IChapterLab2ToDo) => {
+    return todoList.map(todo => (todo.id === id ? updateFn(todo) : todo));
 };
 
 export const chapterOne = (state = initialState, { type, payload }: ChapterOneAction): IChapterState => {
@@ -27,9 +31,7 @@ export const chapterOne = (state = initialState, { type, payload }: ChapterOneAc
                 ...state,
                 lab2ToDo: {
                     ...state.lab2ToDo,
-                    todoList: state.lab2ToDo.todoList.map(
-                        (todo) => (todo.id === payload.id ? { ...todo, title: payload.title } : todo)
-                    ),
+                    todoList: updateToDoById(state.lab2ToDo.todoList, payload.id, todo => ({ ...todo, title: payload.title })),
                 },
             };
         case ChapterOneActionTypes.DeleteToDo:
@@ -45,9 +47,7 @@ export const chapterOne = (state = initialState, { type, payload }: ChapterOneAc
                 ...state,
                 lab2ToDo: {
                     ...state.lab2ToDo,
-                    todoList: state.lab2ToDo.todoList.map(
-                        (todo) => (todo.id === payload ? { ...todo, completed: !todo.completed } : todo)
-                    ),
+                    todoList: updateToDoById(state.lab2ToDo.todoList, payload, todo => ({ ...todo, completed: !todo.completed })),
                 },
             };
         default:

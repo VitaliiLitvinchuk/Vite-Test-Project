@@ -5,12 +5,10 @@ import { labs } from "./constants";
 import { names } from "../constants";
 
 const ChapterOne = () => {
-    const [currentLab, setCurrentLab] = useState<string>(Object.keys(labs[0])[0]);
+    const [currentLab, setCurrentLab] = useState<string>(Object.keys(labs)[0]);
     const [show, setShow] = useState(!currentLab);
 
-    const handleClose = () => {
-        setShow(false);
-    };
+    const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
     return (
@@ -22,12 +20,12 @@ const ChapterOne = () => {
                 title={names[0]}
                 handleClose={handleClose}
                 setLab={setCurrentLab}
-                labs={labs.map(x => Object.keys(x)[0])}
+                labs={Object.keys(labs)}
                 show={show}
             />
             <Container fluid className="flex-grow-1">
                 {
-                    labs.map(x => x[currentLab])
+                    labs[currentLab]
                 }
             </Container>
         </>

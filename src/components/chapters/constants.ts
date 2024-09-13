@@ -40,4 +40,9 @@ export interface Chapter {
     component: React.LazyExoticComponent<React.ComponentType>;
 }
 
+export interface IShowLabs {
+    [key: string]: JSX.Element
+}
+
+
 export const chapters: Chapter[] = keys.map((key, index) => ({ name: key, component: lazy(() => import(`./${paths[index]}/index.tsx`)) }));

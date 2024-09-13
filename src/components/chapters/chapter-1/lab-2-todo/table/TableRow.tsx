@@ -12,7 +12,7 @@ interface ITableRowProps {
     handleAction: (id: number) => void
 }
 
-const TableRow = ({ todo, handleEdit, handleChangeStatus, bootstrapButtonType, actionName, disabledStatus, handleAction }: ITableRowProps) => {
+const TableRow = React.memo(({ todo, handleEdit, handleChangeStatus, bootstrapButtonType, actionName, disabledStatus, handleAction }: ITableRowProps) => {
     const [focused, setFocused] = useState<boolean>(false);
 
     return (
@@ -31,7 +31,7 @@ const TableRow = ({ todo, handleEdit, handleChangeStatus, bootstrapButtonType, a
             </td>
             <td>
                 <button className="btn border-0" disabled={disabledStatus} onClick={() => handleChangeStatus(todo.id)}>
-                    <i className={classNames("fa fa-2x", todo.completed ? 'fa-check text-success' : 'fa-times text-danger')} aria-hidden="true"></i>
+                    <i className={classNames("fa fa-2x", todo.completed ? 'fa-check text-success' : 'fa-times text-danger')}></i>
                 </button>
             </td>
             <td>
@@ -39,6 +39,6 @@ const TableRow = ({ todo, handleEdit, handleChangeStatus, bootstrapButtonType, a
             </td>
         </tr>
     )
-}
+});
 
-export default TableRow
+export default TableRow;

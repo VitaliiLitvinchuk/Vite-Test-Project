@@ -1,11 +1,6 @@
+import { IShowLabs } from "../constants";
 import ToDoList from "./lab-2-todo";
 
-interface IShowLab {
-    [key: string]: JSX.Element
+export const labs: IShowLabs = {
+    'Lab "To Do List"': <ToDoList />,
 }
-
-export const labs: IShowLab[] = [
-    {
-        'Lab "To Do List"': <ToDoList />,
-    }
-];
