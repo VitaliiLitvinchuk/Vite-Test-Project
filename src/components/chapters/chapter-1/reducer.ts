@@ -1,60 +1,56 @@
-import { ChapterOneAction, ChapterOneActionTypes, IChapterState } from "./types"
+import { ChapterOneAction, ChapterOneActionTypes, IChapterState } from "./types";
 
 const initialState: IChapterState = {
-    todoList: [
-        {
-            userId: 1,
-            id: 1,
-            title: "delectus aut autem",
-            completed: false
-        },
-        {
-            userId: 1,
-            id: 2,
-            title: "quis ut nam facilis et officia qui",
-            completed: true
-        }
-    ],
-    nextIdToDo: 3,
-    defaultUserId: 1
-}
+    lab2ToDo: {
+        todoList: [
+            { userId: 1, id: 1, title: "delectus aut autem", completed: false },
+            { userId: 1, id: 2, title: "quis ut nam facilis et officia qui", completed: true },
+        ],
+        nextIdToDo: 3,
+        defaultUserId: 1,
+    },
+};
 
-export const chapterOne = (state = initialState, action: ChapterOneAction): IChapterState => {
-    switch (action.type) {
-        case ChapterOneActionTypes.AddToDo: {
+export const chapterOne = (state = initialState, { type, payload }: ChapterOneAction): IChapterState => {
+    switch (type) {
+        case ChapterOneActionTypes.AddToDo:
             return {
                 ...state,
-                nextIdToDo: state.nextIdToDo + 1,
-                todoList: [...state.todoList, action.payload]
-            }
-        }
-        case ChapterOneActionTypes.ChangeToDoTitle: {
-            return {
-                ...state,
-                todoList: state.todoList.map(x => {
-                    if (x.id === action.payload.id)
-                        return { ...x, title: action.payload.title };
-                    return x;
-                })
+                lab2ToDo: {
+                    ...state.lab2ToDo,
+                    nextIdToDo: state.lab2ToDo.nextIdToDo + 1,
+                    todoList: [...state.lab2ToDo.todoList, payload],
+                },
             };
-        }
-        case ChapterOneActionTypes.DeleteToDo: {
+        case ChapterOneActionTypes.ChangeToDoTitle:
             return {
                 ...state,
-                todoList: state.todoList.filter(x => x.id !== action.payload)
-            }
-        }
-        case ChapterOneActionTypes.ChangeToDoStatus: {
-            return {
-                ...state,
-                todoList: state.todoList.map(x => {
-                    if (x.id === action.payload)
-                        return { ...x, completed: !x.completed };
-                    return x;
-                })
+                lab2ToDo: {
+                    ...state.lab2ToDo,
+                    todoList: state.lab2ToDo.todoList.map(
+                        (todo) => (todo.id === payload.id ? { ...todo, title: payload.title } : todo)
+                    ),
+                },
             };
-        }
+        case ChapterOneActionTypes.DeleteToDo:
+            return {
+                ...state,
+                lab2ToDo: {
+                    ...state.lab2ToDo,
+                    todoList: state.lab2ToDo.todoList.filter(({ id }) => id !== payload),
+                },
+            };
+        case ChapterOneActionTypes.ChangeToDoStatus:
+            return {
+                ...state,
+                lab2ToDo: {
+                    ...state.lab2ToDo,
+                    todoList: state.lab2ToDo.todoList.map(
+                        (todo) => (todo.id === payload ? { ...todo, completed: !todo.completed } : todo)
+                    ),
+                },
+            };
         default:
-            return state
+            return state;
     }
-}
+};

@@ -6,8 +6,8 @@ import { useActions } from "../../../../../hooks/useActions"
 import TableRow from "./TableRow"
 
 const ToDoTable = () => {
-    const { todoList, nextIdToDo, defaultUserId } = useTypedSelector(state => state.chapterOne);
-    const { AddNewToDo, ChangeToDoTitle, ChangeStatusToDo, DeleteToDo } = useActions();
+    const { todoList, nextIdToDo, defaultUserId } = useTypedSelector(state => state.chapterOne.lab2ToDo);
+    const { AddNewToDo, ChangeToDoTitle, ChangeStatusToDo, DeleteToDo } = useActions('chapterOne');
 
     const [todo, setTodo] = useState<IChapterLab2ToDo>({ userId: defaultUserId, id: nextIdToDo, title: "", completed: false });
     const [filter, setFilter] = useState<string>("");

@@ -16,17 +16,17 @@ const rootRoute: IRouteEndpoint = {
     path: rootPath,
     component: HomePage,
     name: "Vite + react + ts",
-    nested: null,
+    nested: null
 }
 
 export const routes: IRouteEndpoint[] = [
     rootRoute,
     {
-        path: `${rootPath}`,
+        path: `${rootPath}/chapters`,
         component: null,
         name: "Chapters",
         nested: paths.map((path, index): IRouteEndpoint => ({
-            path: path,
+            path: `/${path}`,
             component: chapters[keys[index]],
             name: names[index],
             nested: null

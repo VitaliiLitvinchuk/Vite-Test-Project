@@ -1,7 +1,11 @@
+import { Container } from "react-bootstrap";
+
 const Footer = () => {
     return (
         <>
-            <p>Footer</p>
+            <Container className="bg-dark p-3" fluid>
+                Footer
+            </Container>
         </>
     )
 }

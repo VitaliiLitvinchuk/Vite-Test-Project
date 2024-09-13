@@ -13,7 +13,7 @@ const App = () => {
             x.nested ?
               x.nested.map(x2 => x2.component && (
                 <Route
-                  key={`${x.path}${x2.path}`}
+                  key={`${x2.path}`}
                   path={`${x.path}${x2.path}`}
                   element={<x2.component />}
                 />

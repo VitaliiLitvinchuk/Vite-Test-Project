@@ -6,10 +6,14 @@ export enum ChapterOneActionTypes {
     FilterByTitle = "FilterByTitle"
 }
 
-export interface IChapterState {
+export interface ILab2ToDo {
     todoList: IChapterLab2ToDo[],
     nextIdToDo: number,
     defaultUserId: number
+}
+
+export interface IChapterState {
+    lab2ToDo: ILab2ToDo
 }
 
 //

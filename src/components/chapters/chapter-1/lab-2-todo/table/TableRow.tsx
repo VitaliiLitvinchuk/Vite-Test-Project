@@ -26,7 +26,7 @@ const TableRow = ({ todo, handleEdit, handleChangeStatus, bootstrapButtonType, a
                     onFocus={() => setFocused(true)}
                     onBlur={(e) => {
                         setFocused(false);
-                        handleEdit(e, todo.id)
+                        handleEdit(e, todo.id);
                     }} />
             </td>
             <td>

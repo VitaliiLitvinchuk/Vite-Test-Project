@@ -29,7 +29,7 @@ const Header = () => {
                                     </NavDropdown>
                                     :
                                     x.component &&
-                                    <Nav.Item key={x.path}>
+                                    <Nav.Item key={`${x.path}${x.name}`}>
                                         <Link className="nav-link" to={x.path}>{Limiter(x.name)}</Link>
                                     </Nav.Item>
                             )
