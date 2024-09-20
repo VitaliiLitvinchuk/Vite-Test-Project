@@ -52,10 +52,8 @@ const ToDoTable = () => {
     const handleEdit = useCallback(async (e: React.ChangeEvent<HTMLInputElement>, id: number) => {
         const response = await updateToDo({ ...todoList.find(x => x.id === id)!, title: e.target.value });
 
-        if (response) {
+        if (response)
             setTodoList(todoList.map(x => x.id === id ? response : x));
-            alert("Updated successfully");
-        }
     }, [todoList]);
 
     const handleDelete = useCallback(async (id: number) => {
@@ -73,10 +71,8 @@ const ToDoTable = () => {
 
         const response = await updateToDo({ ...todo, completed: !todo.completed });
 
-        if (response) {
+        if (response)
             setTodoList(todoList.map(x => x.id === id ? response : x));
-            alert("Updated successfully");
-        }
     }, [todoList]);
 
     const filteredTodoList = useMemo(() => {
