@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button, Container } from "react-bootstrap";
-import LabsSidebar from "../sidebar";
+import LabsSidebar from "../features/sidebar";
 import { labs } from "./constants";
 import { names } from "../constants";
 

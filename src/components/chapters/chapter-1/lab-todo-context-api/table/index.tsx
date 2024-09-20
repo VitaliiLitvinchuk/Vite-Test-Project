@@ -1,41 +1,54 @@
 import { Table } from "react-bootstrap";
-import { useTypedSelector } from "../../../../../hooks/useTypedSelector";
-import { useState, useCallback, useMemo } from "react";
+import { useState, useCallback, useMemo, useEffect, useContext } from "react";
 import { IChapterLab2ToDo } from "../../types";
-import { useActions } from "../../../../../hooks/useActions";
-import TableRow from "./TableRow";
+import { ToDoListContext } from "../context";
+import TableRow from "../../features/TableRow";
 
+// The code below is a naive implementation of the same functionality
+// as the Redux Toolkit example, but using the Context API instead.
 const ToDoTable = () => {
-    const { todoList, nextIdToDo, defaultUserId } = useTypedSelector(state => state.chapterOne.lab2ToDo);
-    const { AddNewToDo, ChangeToDoTitle, ChangeStatusToDo, DeleteToDo } = useActions('chapterOne');
+    const { todoList, nextIdToDo, defaultUserId, setToDoList, setNextIdToDo, deleteToDo, updateToDo, initToDo } = useContext(ToDoListContext);;
 
-    const [todo, setTodo] = useState<IChapterLab2ToDo>({ userId: defaultUserId, id: nextIdToDo, title: "", completed: false });
     const [filter, setFilter] = useState<string>("");
+    const [todo, setTodo] = useState<IChapterLab2ToDo>({ userId: defaultUserId, id: nextIdToDo, title: "", completed: false });
+
+    useEffect(() => {
+        initToDo();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    useEffect(() => {
+        setTodo({ userId: defaultUserId, id: nextIdToDo, title: "", completed: false });
+    }, [nextIdToDo, defaultUserId]);
 
     const handleFilter = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         setFilter(e.target.value);
     }, []);
 
     const handleCreate = useCallback(() => {
-        AddNewToDo(todo);
-        setTodo({ userId: defaultUserId, id: nextIdToDo + 1, title: "", completed: false });
-    }, [todo, nextIdToDo, defaultUserId, AddNewToDo]);
+        setToDoList([todo, ...todoList]);
+        setNextIdToDo(nextIdToDo + 1);
+    }, [setToDoList, todo, todoList, setNextIdToDo, nextIdToDo]);
 
     const handleEdit = useCallback((e: React.ChangeEvent<HTMLInputElement>, id: number) => {
         if (id === todo.id) {
             setTodo({ ...todo, title: e.target.value });
             return;
         }
-        ChangeToDoTitle(e.target.value, id);
-    }, [todo, ChangeToDoTitle]);
+        const todoUpdate = todoList.find(x => x.id === id);
+        if (todoUpdate)
+            updateToDo({ ...todoUpdate, title: e.target.value });
+    }, [todo, todoList, updateToDo]);
 
     const handleDelete = useCallback((id: number) => {
-        DeleteToDo(id);
-    }, [DeleteToDo]);
+        deleteToDo(id);
+    }, [deleteToDo]);
 
     const handleChangeStatus = useCallback((id: number) => {
-        ChangeStatusToDo(id);
-    }, [ChangeStatusToDo]);
+        const todo = todoList.find(x => x.id === id);
+        if (todo)
+            updateToDo({ ...todo, completed: !todo.completed });
+    }, [todoList, updateToDo]);
 
     const filteredTodoList = useMemo(() => {
         return todoList.filter(x => x.title.includes(filter));
@@ -55,18 +68,6 @@ const ToDoTable = () => {
                 </tr>
             </thead>
             <tbody className="align-middle">
-                {
-                    filteredTodoList.map(todo => (
-                        <TableRow key={todo.id}
-                            todo={todo}
-                            handleEdit={handleEdit}
-                            handleChangeStatus={handleChangeStatus}
-                            bootstrapButtonType='btn-outline-danger'
-                            actionName='Delete'
-                            disabledStatus={false}
-                            handleAction={handleDelete} />
-                    ))
-                }
                 <TableRow
                     key={todo.id}
                     todo={todo}
@@ -76,6 +77,24 @@ const ToDoTable = () => {
                     actionName='Add'
                     disabledStatus={true}
                     handleAction={handleCreate} />
+                <tr>
+                    <td colSpan={5}>
+                        <hr />
+                    </td>
+                </tr>
+                {
+                    filteredTodoList.map(todo => (
+                        <TableRow
+                            key={todo.id}
+                            todo={todo}
+                            handleEdit={handleEdit}
+                            handleChangeStatus={handleChangeStatus}
+                            bootstrapButtonType='btn-outline-danger'
+                            actionName='Delete'
+                            disabledStatus={false}
+                            handleAction={handleDelete} />
+                    ))
+                }
             </tbody>
         </Table>
     );

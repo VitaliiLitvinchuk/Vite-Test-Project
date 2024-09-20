@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { IChapterLab2ToDo } from '../../types'
+import { IChapterLab2ToDo } from '../types'
 import classNames from 'classnames'
 
 interface ITableRowProps {

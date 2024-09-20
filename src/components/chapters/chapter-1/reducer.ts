@@ -2,12 +2,9 @@ import { ChapterOneAction, ChapterOneActionTypes, IChapterLab2ToDo, IChapterStat
 
 const initialState: IChapterState = {
     lab2ToDo: {
-        todoList: [
-            { userId: 1, id: 1, title: "delectus aut autem", completed: false },
-            { userId: 1, id: 2, title: "quis ut nam facilis et officia qui", completed: true },
-        ],
-        nextIdToDo: 3,
-        defaultUserId: 1,
+        todoList: [],
+        nextIdToDo: 1,
+        defaultUserId: 1
     },
 };
 
@@ -23,9 +20,18 @@ export const chapterOne = (state = initialState, { type, payload }: ChapterOneAc
                 lab2ToDo: {
                     ...state.lab2ToDo,
                     nextIdToDo: state.lab2ToDo.nextIdToDo + 1,
-                    todoList: [...state.lab2ToDo.todoList, payload],
+                    todoList: [payload, ...state.lab2ToDo.todoList],
                 },
             };
+        case ChapterOneActionTypes.InitToDoList:
+            return {
+                ...state,
+                lab2ToDo: {
+                    ...state.lab2ToDo,
+                    todoList: payload,
+                    nextIdToDo: payload.sort((a, b) => b.id - a.id)[0].id + 1,
+                },
+            }
         case ChapterOneActionTypes.ChangeToDoTitle:
             return {
                 ...state,

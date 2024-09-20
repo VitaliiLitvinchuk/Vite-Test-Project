@@ -1,9 +1,9 @@
 export enum ChapterOneActionTypes {
     AddToDo = "AddToDo",
+    InitToDoList = "InitToDoList",
     ChangeToDoTitle = "ChangeToDoTitle",
     ChangeToDoStatus = "ChangeToDoStatus",
-    DeleteToDo = "DeleteToDo",
-    FilterByTitle = "FilterByTitle"
+    DeleteToDo = "DeleteToDo"
 }
 
 export interface ILab2ToDo {
@@ -47,11 +47,11 @@ export interface IChapterLab2ChangeToDoStatus {
     payload: number
 }
 
-export interface IChapterLab2FilterByTitleAction {
-    type: ChapterOneActionTypes.FilterByTitle,
-    payload: string
+export interface IChapterLab2InitToDosAction {
+    type: ChapterOneActionTypes.InitToDoList,
+    payload: IChapterLab2ToDo[]
 }
 //
 
 export type ChapterOneAction = IChapterLab2AddAction | IChapterLab2ChangeTitleAction | IChapterLab2DeleteAction | IChapterLab2ChangeToDoStatus
-    | IChapterLab2FilterByTitleAction; 
+    | IChapterLab2InitToDosAction; 

@@ -1,6 +1,12 @@
 import { IShowLabs } from "../constants";
-import ToDoList from "./lab-2-todo";
+import ToDoListContextApi from "./lab-todo-context-api";
+import ToDoListReactQuery from "./lab-todo-react-query";
+import ToDoListToolkit from "./lab-todo-redux-toolkit";
+import ToDoListZustand from "./lab-todo-zustand";
 
 export const labs: IShowLabs = {
-    'Lab "To Do List"': <ToDoList />,
+    'Lab redux toolkit "To Do List"': <ToDoListToolkit />,
+    'Lab react query "To Do List"': <ToDoListReactQuery />,
+    'Lab zustand "To Do List"': <ToDoListZustand />,
+    'Lab context api "To Do List"': <ToDoListContextApi />,
 }
