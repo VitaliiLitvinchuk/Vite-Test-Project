@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { IChapterLab2ToDo } from '../types'
 import classNames from 'classnames'
+import UserModal from './modal';
 
 interface ITableRowProps {
     todo: IChapterLab2ToDo,
@@ -11,13 +12,25 @@ interface ITableRowProps {
     disabledStatus: boolean,
     handleAction: (id: number) => void
 }
-
+// modal not required
 const TableRow = React.memo(({ todo, handleEdit, handleChangeStatus, bootstrapButtonType, actionName, disabledStatus, handleAction }: ITableRowProps) => {
     const [focused, setFocused] = useState<boolean>(false);
+    const [showModal, setShowModal] = React.useState<boolean>(false);
+    const [selectedUserId, setSelectedUserId] = React.useState<number | null>(null);
+
+    const handleShowModal = (userId: number) => {
+        setSelectedUserId(userId);
+        setShowModal(true);
+    };
+
+    const handleCloseModal = () => {
+        setShowModal(false);
+        setSelectedUserId(null);
+    };
 
     return (
         <tr>
-            <td>{todo.userId}</td>
+            <td onClick={() => handleShowModal(todo.userId)}>{todo.userId}</td>
             <td>{todo.id}</td>
             <td>
                 <input type="text" className="form-control"
@@ -37,6 +50,7 @@ const TableRow = React.memo(({ todo, handleEdit, handleChangeStatus, bootstrapBu
             <td>
                 <button className={classNames("btn", bootstrapButtonType, "w-75")} disabled={focused} onClick={() => handleAction(todo.id)}>{actionName}</button>
             </td>
+            <UserModal userId={selectedUserId} show={showModal} handleClose={handleCloseModal} />
         </tr>
     )
 });
