@@ -7,6 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import createToDo from "../query-functions/create";
 import updateToDo from "../query-functions/update";
 import TableRow from "../../features/TableRow";
+import LoaderWrapper from "../../../../loader/wrapper";
 
 const defaultUserId = 1;
 
@@ -81,53 +82,53 @@ const ToDoTable = () => {
         return [];
     }, [todoList, filter]);
 
-    if (isPending || isFetching) return 'Loading...';
-
     if (error) return 'An error has occurred: ' + error.message;
 
     return (
-        <Table striped bordered hover variant="dark">
-            <thead className="align-middle">
-                <tr>
-                    <th style={{ width: "10%" }}>User id</th>
-                    <th style={{ width: "10%" }}>Task id</th>
-                    <th style={{ width: "55%" }}>
-                        <input type="text" className="form-control" placeholder="Filter by title" onChange={handleFilter} />
-                    </th>
-                    <th style={{ width: "10%" }}>Completed</th>
-                    <th style={{ width: "15%" }}></th>
-                </tr>
-            </thead>
-            <tbody className="align-middle">
-                <TableRow
-                    key={todo.id}
-                    todo={todo}
-                    handleEdit={handleEdit}
-                    handleChangeStatus={handleChangeStatus}
-                    bootstrapButtonType='btn-outline-primary'
-                    actionName='Add'
-                    disabledStatus={true}
-                    handleAction={handleCreate} />
-                <tr>
-                    <td colSpan={5}>
-                        <hr />
-                    </td>
-                </tr>
-                {
-                    filteredTodoList.map(todo => (
-                        <TableRow
-                            key={todo.id}
-                            todo={todo}
-                            handleEdit={handleEdit}
-                            handleChangeStatus={handleChangeStatus}
-                            bootstrapButtonType='btn-outline-danger'
-                            actionName='Delete'
-                            disabledStatus={false}
-                            handleAction={handleDelete} />
-                    ))
-                }
-            </tbody>
-        </Table>
+        <LoaderWrapper visible={isPending || isFetching}>
+            <Table striped bordered hover variant="dark">
+                <thead className="align-middle">
+                    <tr>
+                        <th style={{ width: "10%" }}>User id</th>
+                        <th style={{ width: "10%" }}>Task id</th>
+                        <th style={{ width: "55%" }}>
+                            <input type="text" className="form-control" placeholder="Filter by title" onChange={handleFilter} />
+                        </th>
+                        <th style={{ width: "10%" }}>Completed</th>
+                        <th style={{ width: "15%" }}></th>
+                    </tr>
+                </thead>
+                <tbody className="align-middle">
+                    <TableRow
+                        key={todo.id}
+                        todo={todo}
+                        handleEdit={handleEdit}
+                        handleChangeStatus={handleChangeStatus}
+                        bootstrapButtonType='btn-outline-primary'
+                        actionName='Add'
+                        disabledStatus={true}
+                        handleAction={handleCreate} />
+                    <tr>
+                        <td colSpan={5}>
+                            <hr />
+                        </td>
+                    </tr>
+                    {
+                        filteredTodoList.map(todo => (
+                            <TableRow
+                                key={todo.id}
+                                todo={todo}
+                                handleEdit={handleEdit}
+                                handleChangeStatus={handleChangeStatus}
+                                bootstrapButtonType='btn-outline-danger'
+                                actionName='Delete'
+                                disabledStatus={false}
+                                handleAction={handleDelete} />
+                        ))
+                    }
+                </tbody>
+            </Table>
+        </LoaderWrapper>
     );
 }
 

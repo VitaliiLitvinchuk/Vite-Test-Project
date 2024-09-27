@@ -4,8 +4,6 @@ import { IChapterLab2ToDo } from "../../types";
 import { ToDoListContext } from "../context";
 import TableRow from "../../features/TableRow";
 
-// The code below is a naive implementation of the same functionality
-// as the Redux Toolkit example, but using the Context API instead.
 const ToDoTable = () => {
     const { todoList, nextIdToDo, defaultUserId, setToDoList, setNextIdToDo, deleteToDo, updateToDo, initToDo } = useContext(ToDoListContext);;
 
