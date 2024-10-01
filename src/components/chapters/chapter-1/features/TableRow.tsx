@@ -16,8 +16,8 @@ interface ITableRowProps {
 // modal not required
 const TableRow = React.memo(({ todo, bootstrapButtonType, actionName, disableStatus, disableActionOnEmpty, handleAction, handleEdit, handleChangeStatus, }: ITableRowProps) => {
     const [focused, setFocused] = useState<boolean>(false);
-    const [showModal, setShowModal] = React.useState<boolean>(false);
-    const [selectedUserId, setSelectedUserId] = React.useState<number | null>(null);
+    const [showModal, setShowModal] = useState<boolean>(false);
+    const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
     const [isEmpty, setIsEmpty] = useState<boolean>(false);
 
     const handleShowModal = (userId: number) => {
@@ -29,6 +29,14 @@ const TableRow = React.memo(({ todo, bootstrapButtonType, actionName, disableSta
         setShowModal(false);
         setSelectedUserId(null);
     };
+
+    const buttonHandle = (id: number) => {
+        if (!todo.title) {
+            setIsEmpty(true);
+            return;
+        }
+        handleAction(id)
+    }
 
     return (
         <tr>
@@ -64,7 +72,7 @@ const TableRow = React.memo(({ todo, bootstrapButtonType, actionName, disableSta
             <td>
                 <button className={classNames("btn", bootstrapButtonType, "w-75")}
                     disabled={focused || (disableActionOnEmpty && isEmpty)}
-                    onClick={() => handleAction(todo.id)}>{actionName}</button>
+                    onClick={() => buttonHandle(todo.id)}>{actionName}</button>
             </td>
             <UserModal userId={selectedUserId} show={showModal} handleClose={handleCloseModal} />
         </tr>

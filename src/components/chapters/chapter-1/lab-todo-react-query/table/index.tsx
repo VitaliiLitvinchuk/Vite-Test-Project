@@ -13,10 +13,10 @@ const defaultUserId = 1;
 
 const ToDoTable = () => {
     const [filter, setFilter] = useState<string>("");
-
+    const [loading, setLoading] = useState<boolean>(false);
     const { isPending, error, data, isFetching } = useQuery({
         queryKey: ['todos'],
-        queryFn: async () => await getToDos({ limit: 10, start: 20 }),
+        queryFn: async () => await getToDos({ limit: 200, start: 0 }),
     })
 
     const [nextIdToDo, setNext] = useState<number>(1);
@@ -39,6 +39,7 @@ const ToDoTable = () => {
     }, []);
 
     const handleCreate = useCallback(async () => {
+        setLoading(true);
         const response = await createToDo(todo);
 
         if (response) {
@@ -48,32 +49,44 @@ const ToDoTable = () => {
             setTodoList([response, ...todoList]);
             setNext(response.id + 1);
         }
+        setLoading(false);
     }, [todo, todoList, nextIdToDo]);
 
     const handleEdit = useCallback(async (e: React.ChangeEvent<HTMLInputElement>, id: number) => {
+        if (id === todo.id) {
+            setTodo({ ...todo, title: e.target.value });
+            return;
+        }
+
+        setLoading(true);
         const response = await updateToDo({ ...todoList.find(x => x.id === id)!, title: e.target.value });
 
         if (response)
             setTodoList(todoList.map(x => x.id === id ? response : x));
-    }, [todoList]);
+        setLoading(false);
+    }, [todo, todoList]);
 
     const handleDelete = useCallback(async (id: number) => {
+        setLoading(true);
         if (!todoList)
             return;
 
-        const response = await deleteToDo(id, todoList);
+        const response = await deleteToDo(id);
 
         if (response)
-            setTodoList(response);
+            setTodoList(todoList.filter(x => x.id !== id));
+        setLoading(false);
     }, [todoList]);
 
     const handleChangeStatus = useCallback(async (id: number) => {
+        setLoading(true);
         const todo = todoList.find(x => x.id === id)!;
 
         const response = await updateToDo({ ...todo, completed: !todo.completed });
 
         if (response)
             setTodoList(todoList.map(x => x.id === id ? response : x));
+        setLoading(false);
     }, [todoList]);
 
     const filteredTodoList = useMemo(() => {
@@ -85,7 +98,7 @@ const ToDoTable = () => {
     if (error) return 'An error has occurred: ' + error.message;
 
     return (
-        <LoaderWrapper visible={isPending || isFetching}>
+        <LoaderWrapper visible={isPending || isFetching || loading}>
             <Table striped bordered hover variant="dark">
                 <thead className="align-middle">
                     <tr>
