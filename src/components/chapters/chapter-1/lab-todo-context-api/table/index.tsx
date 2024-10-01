@@ -69,11 +69,12 @@ const ToDoTable = () => {
                 <TableRow
                     key={todo.id}
                     todo={todo}
-                    handleEdit={handleEdit}
-                    handleChangeStatus={handleChangeStatus}
                     bootstrapButtonType='btn-outline-primary'
                     actionName='Add'
-                    disabledStatus={true}
+                    disableStatus={true}
+                    disableActionOnEmpty={true}
+                    handleEdit={handleEdit}
+                    handleChangeStatus={handleChangeStatus}
                     handleAction={handleCreate} />
                 <tr>
                     <td colSpan={5}>
@@ -85,11 +86,12 @@ const ToDoTable = () => {
                         <TableRow
                             key={todo.id}
                             todo={todo}
-                            handleEdit={handleEdit}
-                            handleChangeStatus={handleChangeStatus}
                             bootstrapButtonType='btn-outline-danger'
                             actionName='Delete'
-                            disabledStatus={false}
+                            disableStatus={false}
+                            disableActionOnEmpty={false}
+                            handleEdit={handleEdit}
+                            handleChangeStatus={handleChangeStatus}
                             handleAction={handleDelete} />
                     ))
                 }
