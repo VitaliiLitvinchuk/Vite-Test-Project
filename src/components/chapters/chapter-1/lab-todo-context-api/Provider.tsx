@@ -6,9 +6,9 @@ import UserModal from '../features/modal';
 import ToDoWorkerModal from './modal';
 import CreateModal from './modal/create';
 
-let fetching = false;
 const Provider = ({ children }: { children: ReactNode }) => {
     const [todoList, setToDoList] = useState<IChapterLab2ToDo[]>([]);
+    const [fetching, setFetching] = useState<boolean>(false);
     const [nextIdToDo, setNextIdToDo] = useState<number>(1);
     const [defaultUserId] = useState<number>(1);
 
@@ -52,7 +52,7 @@ const Provider = ({ children }: { children: ReactNode }) => {
 
     const initToDo = useCallback(async () => {
         if (todoList.length === 0 && nextIdToDo === 1 && !fetching) {
-            fetching = true;
+            setFetching(true);
             setTimeout(async () => {
                 try {
                     await axios.get<IChapterLab2ToDo[]>(`https://jsonplaceholder.typicode.com/todos`).then(response => {
@@ -62,14 +62,16 @@ const Provider = ({ children }: { children: ReactNode }) => {
                                 response.data.push({ ...response.data[j], id: 200 * i + j + 1 });
                         setToDoList(response.data);
                         setNextIdToDo(response.data.sort((a, b) => b.id - a.id)[0].id + 1);
+                        setFetching(false);
                     });
                 }
                 finally {
-                    fetching = false;
+                    setFetching(false);
                 }
             }, 400);
         }
-    }, [nextIdToDo, todoList.length]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return (
         <ToDoListContext.Provider

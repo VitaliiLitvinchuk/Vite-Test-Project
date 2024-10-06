@@ -36,7 +36,7 @@ const ToDoTable = () => {
 
             observerRef.current = new IntersectionObserver((entries) => {
                 if (entries[0].isIntersecting)
-                    setVisibleItems((prevVisibleItems) => prevVisibleItems + 10);
+                    setVisibleItems((prevVisibleItems) => prevVisibleItems + items);
             });
 
             if (node) observerRef.current.observe(node);
