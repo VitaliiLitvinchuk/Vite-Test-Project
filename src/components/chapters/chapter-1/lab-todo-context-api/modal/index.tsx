@@ -30,11 +30,9 @@ const ToDoWorkerModal = ({ show, todo, title, handleClose, handleSubmit }: IToDo
         close();
     }, [newTitle, todo, handleSubmit, close]);
 
-    const handleEdit = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-        if (e.target.value.trim() === "") {
+    const handleEdit = useCallback((e: React.FocusEvent<HTMLInputElement>) => {
+        if (e.target.value.trim() === "")
             setError("Title cannot be empty");
-            return;
-        }
         else
             setError("");
 
@@ -50,7 +48,7 @@ const ToDoWorkerModal = ({ show, todo, title, handleClose, handleSubmit }: IToDo
                 <Modal.Body>
                     <Form.Group>
                         <Form.Label htmlFor="title">Title</Form.Label>
-                        <Form.Control id="title" type="text" defaultValue={newTitle} onChange={handleEdit} />
+                        <Form.Control id="title" type="text" defaultValue={newTitle} onBlur={handleEdit} />
                         {error && <Form.Text className="text-danger">{error}</Form.Text>}
                     </Form.Group>
                 </Modal.Body>
