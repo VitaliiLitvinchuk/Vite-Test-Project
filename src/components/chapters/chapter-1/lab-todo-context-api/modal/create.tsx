@@ -39,7 +39,7 @@ const CreateModal = () => {
                 onClick={handleShow}>
                 <i className="fa fa-plus"></i>
             </div>
-            <ToDoWorkerModal show={show} todo={todo} title='Edit' handleClose={handleClose} handleSubmit={setTodo} />
+            <ToDoWorkerModal show={show} todo={todo} title='Create Todo' handleClose={handleClose} handleSubmit={setTodo} />
         </>
     )
 }
