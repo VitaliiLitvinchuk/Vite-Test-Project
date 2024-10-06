@@ -5,7 +5,7 @@ import { labs } from "./constants";
 import { names } from "../constants";
 
 const ChapterOne = () => {
-    const [currentLab, setCurrentLab] = useState<string>(Object.keys(labs)[1]);
+    const [currentLab, setCurrentLab] = useState<string>(Object.keys(labs)[3]);
     const [show, setShow] = useState(!currentLab);
 
     const handleClose = () => setShow(false);

@@ -55,7 +55,7 @@ const UserModal = ({ userId, show, handleClose }: UserModalProps) => {
 
     return (
         <Modal show={show} onHide={handleClose}>
-            <Modal.Header closeButton>
+            <Modal.Header>
                 <Modal.Title>Information about user</Modal.Title>
             </Modal.Header>
             <Modal.Body>
