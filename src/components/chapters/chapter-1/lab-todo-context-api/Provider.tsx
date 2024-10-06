@@ -40,7 +40,8 @@ const Provider = ({ children }: { children: ReactNode }) => {
 
     const addToDo = useCallback((todo: IChapterLab2ToDo) => {
         setToDoList([todo, ...todoList]);
-    }, [todoList]);
+        setNextIdToDo(nextIdToDo + 1);
+    }, [todoList, nextIdToDo]);
 
     const updateToDo = useCallback((todo: IChapterLab2ToDo) => {
         setToDoList(todoList.map(t => (t.id === todo.id ? todo : t)));
