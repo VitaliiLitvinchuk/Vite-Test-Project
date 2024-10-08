@@ -39,7 +39,7 @@ const CreateModal = () => {
                 onClick={handleShow}>
                 <i className="fa fa-plus"></i>
             </div>
-            <PhoneWorkerModal show={show} phone={phone} title='Create Todo' handleClose={handleClose} handleSubmit={setPhone} />
+            <PhoneWorkerModal show={show} phone={phone} title='Create phone' handleClose={handleClose} handleSubmit={setPhone} />
         </>
     )
 }

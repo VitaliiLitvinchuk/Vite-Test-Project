@@ -3,10 +3,10 @@ import Title from "../../features/title"
 import Provider from "./Provider"
 import PhoneTable from "./table"
 
-const Lab8 = () => {
+const Lab9 = () => {
     return (
         <Container fluid>
-            <Title title='Lab 8' />
+            <Title title='Lab 9' />
             <Provider>
                 <PhoneTable />
             </Provider>
@@ -14,4 +14,4 @@ const Lab8 = () => {
     )
 }
 
-export default Lab8
+export default Lab9

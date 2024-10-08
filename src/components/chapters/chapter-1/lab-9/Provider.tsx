@@ -10,9 +10,7 @@ const Provider = ({ children }: { children: ReactNode }) => {
     const [phoneList, setPhoneList] = useState<IPhoneNumber[]>([]);
     const [fetching, setFetching] = useState<boolean>(false);
     const [nextIdPhone, setNextIdPhone] = useState<number>(1);
-
     const [showEditModal, setShowEditModal] = useState<boolean>(false);
-
     const [selectedPhone, setSelectedPhone] = useState<IPhoneNumber>({} as IPhoneNumber);
 
     const handleShowEditModal = useCallback((phone: IPhoneNumber) => {
