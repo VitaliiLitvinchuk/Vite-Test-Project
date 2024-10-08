@@ -1,7 +1,18 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import compression from 'vite-plugin-compression';
-import { VitePWA } from 'vite-plugin-pwa';
+// import { VitePWA } from 'vite-plugin-pwa';
+// VitePWA({
+//   registerType: 'autoUpdate',
+//   manifest: {
+//     name: 'Vite + react + ts',
+//     short_name: 'Vite + react + ts',
+//     start_url: '/',
+//     display: 'standalone',
+//     background_color: '#ffffff',
+//     theme_color: '#000000',
+//   },
+// }),
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -20,17 +31,6 @@ export default defineConfig({
       compressionOptions: { level: 9 },
       filter: /\.(js|css|html|svg|json)$/,
     }),
-    // VitePWA({
-    //   registerType: 'autoUpdate',
-    //   manifest: {
-    //     name: 'Vite + react + ts',
-    //     short_name: 'Vite + react + ts',
-    //     start_url: '/',
-    //     display: 'standalone',
-    //     background_color: '#ffffff',
-    //     theme_color: '#000000',
-    //   },
-    // }),
     react()
   ],
 });
