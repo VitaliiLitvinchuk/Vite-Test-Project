@@ -76,17 +76,17 @@ const PhoneWorkerModal = ({ show, phone, title, handleClose, handleSubmit }: IPh
                 <Modal.Body>
                     <Form.Group>
                         <Form.Label htmlFor="firstname">FirstName</Form.Label>
-                        <Form.Control id="firstname" type="text" defaultValue={newFirstName} onBlur={(e) => handleEdit(e, 'firstname')} />
+                        <Form.Control id="firstname" type="text" defaultValue={newFirstName} onBlur={(e: React.FocusEvent<HTMLInputElement>) => handleEdit(e, 'firstname')} />
                         {error && error['firstName'] && <Form.Text className="text-danger">{error['firstName']}</Form.Text>}
                     </Form.Group>
                     <Form.Group>
                         <Form.Label htmlFor="lastname">LastName</Form.Label>
-                        <Form.Control id="lastname" type="text" defaultValue={newLastName} onBlur={(e) => handleEdit(e, 'lastname')} />
+                        <Form.Control id="lastname" type="text" defaultValue={newLastName} onBlur={(e: React.FocusEvent<HTMLInputElement>) => handleEdit(e, 'lastname')} />
                         {error && error['lastName'] && <Form.Text className="text-danger">{error['lastName']}</Form.Text>}
                     </Form.Group>
                     <Form.Group>
                         <Form.Label htmlFor="phone">Phone</Form.Label>
-                        <Form.Control id="phone" type="text" defaultValue={newPhone} onBlur={(e) => handleEdit(e, 'phone')} />
+                        <Form.Control id="phone" type="text" defaultValue={newPhone} onBlur={(e: React.FocusEvent<HTMLInputElement>) => handleEdit(e, 'phone')} />
                         {error && error['phone'] && <Form.Text className="text-danger">{error['phone']}</Form.Text>}
                     </Form.Group>
                 </Modal.Body>

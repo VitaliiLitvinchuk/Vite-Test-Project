@@ -4,7 +4,6 @@ import axios from 'axios';
 import { IPhoneNumber } from './types';
 import PhoneWorkerModal from './modal';
 import CreateModal from './modal/create';
-// import CreateModal from './modal/create';
 
 const Provider = ({ children }: { children: ReactNode }) => {
     const [phoneList, setPhoneList] = useState<IPhoneNumber[]>([]);
