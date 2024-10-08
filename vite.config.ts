@@ -20,17 +20,17 @@ export default defineConfig({
       compressionOptions: { level: 9 },
       filter: /\.(js|css|html|svg|json)$/,
     }),
-    VitePWA({
-      registerType: 'autoUpdate',
-      manifest: {
-        name: 'Vite + react + ts',
-        short_name: 'Vite + react + ts',
-        start_url: '/',
-        display: 'standalone',
-        background_color: '#ffffff',
-        theme_color: '#000000',
-      },
-    }),
+    // VitePWA({
+    //   registerType: 'autoUpdate',
+    //   manifest: {
+    //     name: 'Vite + react + ts',
+    //     short_name: 'Vite + react + ts',
+    //     start_url: '/',
+    //     display: 'standalone',
+    //     background_color: '#ffffff',
+    //     theme_color: '#000000',
+    //   },
+    // }),
     react()
   ],
 });
