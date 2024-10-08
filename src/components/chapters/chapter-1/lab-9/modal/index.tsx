@@ -59,12 +59,18 @@ const PhoneWorkerModal = ({ show, phone, title, handleClose, handleSubmit }: IPh
             return;
         }
 
-        if (name === 'firstname')
+        if (name === 'firstname') {
+            setError({ ...error, firstName: "" });
             setNewFirstName(e.target.value);
-        else if (name === 'lastname')
+        }
+        else if (name === 'lastname') {
+            setError({ ...error, lastName: "" });
             setNewLastName(e.target.value);
-        else if (name === 'phone')
+        }
+        else if (name === 'phone') {
+            setError({ ...error, phone: "" });
             setNewPhone(e.target.value);
+        }
     }, [error]);
 
     return (
