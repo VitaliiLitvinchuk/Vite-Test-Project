@@ -10,12 +10,17 @@ interface IPhoneWorkerModalProps {
     handleSubmit: (phone: IPhoneNumber) => void
 }
 
+interface IErrorType {
+    firstName: string
+    lastName: string
+    phone: string
+}
+
 const PhoneWorkerModal = ({ show, phone, title, handleClose, handleSubmit }: IPhoneWorkerModalProps) => {
     const [newFirstName, setNewFirstName] = useState<string>("");
     const [newLastName, setNewLastName] = useState<string>("");
     const [newPhone, setNewPhone] = useState<string>("");
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const [error, setError] = useState<any>();
+    const [error, setError] = useState<IErrorType>({ firstName: "", lastName: "", phone: "" });
 
     useEffect(() => {
         setNewFirstName(phone.firstName);
@@ -32,7 +37,9 @@ const PhoneWorkerModal = ({ show, phone, title, handleClose, handleSubmit }: IPh
     const close = useCallback(() => {
         handleClose();
         setNewFirstName("");
-        setError({});
+        setNewLastName("");
+        setNewPhone("");
+        setError({ firstName: "", lastName: "", phone: "" });
     }, [handleClose]);
 
     const submit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
@@ -41,15 +48,14 @@ const PhoneWorkerModal = ({ show, phone, title, handleClose, handleSubmit }: IPh
         close();
     }, [handleSubmit, phone, newFirstName, newLastName, newPhone, close]);
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const handleEdit = useCallback((e: any, name: string) => {
+    const handleEdit = useCallback((e: React.FocusEvent<HTMLInputElement>, name: string) => {
         if (e.target.value.trim() === "") {
             if (name === 'firstname')
-                setError({ ...error, firstname: "FirstName cannot be empty" });
+                setError({ ...error, firstName: "The FirstName is required" });
             else if (name === 'lastname')
-                setError({ ...error, lastname: "LastName cannot be empty" });
+                setError({ ...error, lastName: "The LastName is required" });
             else if (name === 'phone')
-                setError({ ...error, phone: "Phone cannot be empty" });
+                setError({ ...error, phone: "The Phone is required" });
             return;
         }
 
@@ -71,12 +77,12 @@ const PhoneWorkerModal = ({ show, phone, title, handleClose, handleSubmit }: IPh
                     <Form.Group>
                         <Form.Label htmlFor="firstname">FirstName</Form.Label>
                         <Form.Control id="firstname" type="text" defaultValue={newFirstName} onBlur={(e) => handleEdit(e, 'firstname')} />
-                        {error && error['firstname'] && <Form.Text className="text-danger">{error['firstname']}</Form.Text>}
+                        {error && error['firstName'] && <Form.Text className="text-danger">{error['firstName']}</Form.Text>}
                     </Form.Group>
                     <Form.Group>
                         <Form.Label htmlFor="lastname">LastName</Form.Label>
                         <Form.Control id="lastname" type="text" defaultValue={newLastName} onBlur={(e) => handleEdit(e, 'lastname')} />
-                        {error && error['lastname'] && <Form.Text className="text-danger">{error['lastname']}</Form.Text>}
+                        {error && error['lastName'] && <Form.Text className="text-danger">{error['lastName']}</Form.Text>}
                     </Form.Group>
                     <Form.Group>
                         <Form.Label htmlFor="phone">Phone</Form.Label>
@@ -88,7 +94,7 @@ const PhoneWorkerModal = ({ show, phone, title, handleClose, handleSubmit }: IPh
                     <Button variant="secondary" onClick={close}>
                         Close
                     </Button>
-                    <Button variant="primary" type="submit" disabled={!!error}>
+                    <Button variant="primary" type="submit" disabled={!!error.firstName || !!error.lastName || !!error.phone}>
                         Save
                     </Button>
                 </Modal.Footer>
