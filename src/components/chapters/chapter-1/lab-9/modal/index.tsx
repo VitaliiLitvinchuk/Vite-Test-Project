@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { IPhoneNumber } from "../types";
 
@@ -11,10 +11,23 @@ interface IPhoneWorkerModalProps {
 }
 
 interface IErrorType {
+    [key: string]: string
     firstName: string
     lastName: string
     phone: string
 }
+
+enum Fields {
+    'firstName',
+    'lastName',
+    'phone'
+}
+
+const names = [
+    "First Name",
+    "Last Name",
+    "Phone"
+];
 
 const PhoneWorkerModal = ({ show, phone, title, handleClose, handleSubmit }: IPhoneWorkerModalProps) => {
     const [newFirstName, setNewFirstName] = useState<string>("");
@@ -34,44 +47,67 @@ const PhoneWorkerModal = ({ show, phone, title, handleClose, handleSubmit }: IPh
         setNewPhone(phone.phone);
     }, [phone.phone]);
 
+    const setter = useMemo(() => {
+        return [setNewFirstName, setNewLastName, setNewPhone];
+    }, []);
+
+    const getter = useMemo(() => {
+        return [newFirstName, newLastName, newPhone];
+    }, [newFirstName, newLastName, newPhone]);
+
+    const typeValues = useMemo(() => {
+        const values = Object.values(Fields);
+        return values.slice(0, values.length / 2);
+    }, []);
+
     const close = useCallback(() => {
         handleClose();
-        setNewFirstName("");
-        setNewLastName("");
-        setNewPhone("");
-        setError({ firstName: "", lastName: "", phone: "" });
-    }, [handleClose]);
+        setter.forEach(set => set(""));
+        const data = typeValues.reduce((acc, value) => {
+            acc[value] = "";
+            return acc;
+        }, {} as Record<string, string>)
+        setError({ ...error, ...data });
+    }, [error, handleClose, setter, typeValues]);
 
     const submit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        handleSubmit({ ...phone, firstName: newFirstName, lastName: newLastName, phone: newPhone });
-        close();
-    }, [handleSubmit, phone, newFirstName, newLastName, newPhone, close]);
+        let validation = true;
+        const tempError = { ...error } as IErrorType;
 
-    const handleEdit = useCallback((e: React.FocusEvent<HTMLInputElement>, name: string) => {
-        if (e.target.value.trim() === "") {
-            if (name === 'firstname')
-                setError({ ...error, firstName: "The FirstName is required" });
-            else if (name === 'lastname')
-                setError({ ...error, lastName: "The LastName is required" });
-            else if (name === 'phone')
-                setError({ ...error, phone: "The Phone is required" });
-            return;
+        typeValues.forEach((_value, index) => {
+            validation = handleEdit(getter[index], Fields[Fields[index] as keyof typeof Fields], tempError) && validation;
+        });
+
+        setError(tempError);
+
+        if (validation) {
+            const data = typeValues.reduce((acc, value, index) => {
+                acc[value] = getter[index];
+                return acc;
+            }, {} as Record<string, string>);
+            handleSubmit({ ...phone, ...data });
+            close();
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [newFirstName, newLastName, newPhone, handleSubmit, phone, close]);
+
+    const handleEdit = useCallback((value: string, field: Fields, e: IErrorType | null = null) => {
+        const fieldName = Fields[field];
+        if (value.trim() === "") {
+            if (e !== null)
+                e[fieldName] = `The ${names[field]} is required`;
+            else
+                setError({ ...error, [fieldName]: `The ${names[field]} is required` });
+
+            return false;
         }
 
-        if (name === 'firstname') {
-            setError({ ...error, firstName: "" });
-            setNewFirstName(e.target.value);
-        }
-        else if (name === 'lastname') {
-            setError({ ...error, lastName: "" });
-            setNewLastName(e.target.value);
-        }
-        else if (name === 'phone') {
-            setError({ ...error, phone: "" });
-            setNewPhone(e.target.value);
-        }
-    }, [error]);
+        setter[field](value);
+        setError({ ...error, [fieldName]: "" });
+
+        return true;
+    }, [error, setter]);
 
     return (
         <Modal show={show} onHide={close}>
@@ -80,27 +116,25 @@ const PhoneWorkerModal = ({ show, phone, title, handleClose, handleSubmit }: IPh
             </Modal.Header>
             <Form onSubmit={submit}>
                 <Modal.Body>
-                    <Form.Group>
-                        <Form.Label htmlFor="firstname">FirstName</Form.Label>
-                        <Form.Control id="firstname" type="text" defaultValue={newFirstName} onBlur={(e: React.FocusEvent<HTMLInputElement>) => handleEdit(e, 'firstname')} />
-                        {error && error['firstName'] && <Form.Text className="text-danger">{error['firstName']}</Form.Text>}
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Label htmlFor="lastname">LastName</Form.Label>
-                        <Form.Control id="lastname" type="text" defaultValue={newLastName} onBlur={(e: React.FocusEvent<HTMLInputElement>) => handleEdit(e, 'lastname')} />
-                        {error && error['lastName'] && <Form.Text className="text-danger">{error['lastName']}</Form.Text>}
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Label htmlFor="phone">Phone</Form.Label>
-                        <Form.Control id="phone" type="text" defaultValue={newPhone} onBlur={(e: React.FocusEvent<HTMLInputElement>) => handleEdit(e, 'phone')} />
-                        {error && error['phone'] && <Form.Text className="text-danger">{error['phone']}</Form.Text>}
-                    </Form.Group>
+                    {
+                        names.map((name, index) => (
+                            <Form.Group key={name}>
+                                <Form.Label htmlFor={name}>{name}</Form.Label>
+                                <Form.Control id={name}
+                                    type="text"
+                                    defaultValue={getter[index]}
+                                    onBlur={(e: React.FocusEvent<HTMLInputElement>) => handleEdit(e.target.value, Fields[Fields[index] as keyof typeof Fields])}
+                                />
+                                {error[Fields[index]] && <Form.Text className="text-danger">{error[Fields[index]]}</Form.Text>}
+                            </Form.Group>
+                        ))
+                    }
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={close}>
                         Close
                     </Button>
-                    <Button variant="primary" type="submit" disabled={!!error.firstName || !!error.lastName || !!error.phone}>
+                    <Button variant="primary" type="submit" disabled={Object.values(error).some((value) => !!value)}>
                         Save
                     </Button>
                 </Modal.Footer>
