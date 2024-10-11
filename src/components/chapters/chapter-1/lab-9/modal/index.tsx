@@ -71,7 +71,7 @@ const PhoneWorkerModal = ({ show, phone, title, handleClose, handleSubmit }: IPh
             fields={Fields}
             handleClose={handleClose}
             setError={setError as Dispatch<SetStateAction<IModalFormError>>}
-            handleSubmit={(e) => handleSubmit(e as unknown as IPhoneNumber)} />
+            handleSubmit={(e) => handleSubmit({ ...phone, ...e as unknown as IPhoneNumber })} />
     )
 };
 
