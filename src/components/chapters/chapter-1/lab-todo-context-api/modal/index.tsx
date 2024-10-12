@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { Button, Form, Modal } from "react-bootstrap";
+import { Dispatch, SetStateAction, useEffect, useMemo, useState } from "react";
 import { IChapterLab2ToDo } from "../../types";
+import ModalForm, { IModalFormError, IValidation } from "../../../features/modal";
 
 interface IToDoWorkerModalProps {
     show: boolean
@@ -10,58 +10,49 @@ interface IToDoWorkerModalProps {
     handleSubmit: (todo: IChapterLab2ToDo) => void
 }
 
+interface IErrorType extends IModalFormError {
+    title: string
+}
+
+const Fields = ['title'] as const;
+
+const validation = {
+    title: [{ func: (value: string) => value.trim().length > 0, message: "The {validationFor} is required" }] as IValidation[],
+}
+
+const names = [
+    "Title",
+];
+
 const ToDoWorkerModal = ({ show, todo, title, handleClose, handleSubmit }: IToDoWorkerModalProps) => {
     const [newTitle, setNewTitle] = useState<string>("");
-    const [error, setError] = useState<string>("");
+    const [error, setError] = useState<IErrorType>({ title: "" });
 
     useEffect(() => {
         setNewTitle(todo.title);
     }, [todo.title]);
 
-    const close = useCallback(() => {
-        handleClose();
-        setNewTitle("");
-        setError("");
-    }, [handleClose]);
-
-    const submit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        handleSubmit({ ...todo, title: newTitle });
-        close();
-    }, [newTitle, todo, handleSubmit, close]);
-
-    const handleEdit = useCallback((e: React.FocusEvent<HTMLInputElement>) => {
-        if (e.target.value.trim() === "")
-            setError("Title cannot be empty");
-        else
-            setError("");
-
-        setNewTitle(e.target.value);
+    const setter = useMemo(() => {
+        return [setNewTitle];
     }, []);
 
+    const getter = useMemo(() => {
+        return [newTitle];
+    }, [newTitle]);
+
     return (
-        <Modal show={show} onHide={close}>
-            <Modal.Header>
-                <Modal.Title>{title}</Modal.Title>
-            </Modal.Header>
-            <Form onSubmit={submit}>
-                <Modal.Body>
-                    <Form.Group>
-                        <Form.Label htmlFor="title">Title</Form.Label>
-                        <Form.Control id="title" type="text" defaultValue={newTitle} onBlur={handleEdit} />
-                        {error && <Form.Text className="text-danger">{error}</Form.Text>}
-                    </Form.Group>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={close}>
-                        Close
-                    </Button>
-                    <Button variant="primary" type="submit" disabled={!!error}>
-                        Save
-                    </Button>
-                </Modal.Footer>
-            </Form>
-        </Modal>
+        <ModalForm
+            show={show}
+            title={title}
+            getter={getter}
+            setter={setter}
+            error={error}
+            validation={validation}
+            names={names}
+            fields={Fields}
+            handleClose={handleClose}
+            setError={setError as Dispatch<SetStateAction<IModalFormError>>}
+            handleSubmit={(e) => handleSubmit({ ...todo, ...e as unknown as IChapterLab2ToDo })} />
     );
 };
 

@@ -18,7 +18,7 @@ interface IErrorType extends IModalFormError {
 
 const Fields = ['firstName', 'lastName', 'phone'] as const;
 
-const validations = {
+const validation = {
     firstName: [{ func: (value: string) => value.trim().length > 0, message: "The {validationFor} is required" }] as IValidation[],
     lastName: [{ func: (value: string) => value.trim().length > 0, message: "The {validationFor} is required" }] as IValidation[],
     phone: [
@@ -66,7 +66,7 @@ const PhoneWorkerModal = ({ show, phone, title, handleClose, handleSubmit }: IPh
             getter={getter}
             setter={setter}
             error={error}
-            validation={validations}
+            validation={validation}
             names={names}
             fields={Fields}
             handleClose={handleClose}

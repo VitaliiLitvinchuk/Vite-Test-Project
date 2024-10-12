@@ -1,4 +1,5 @@
 import React, { useCallback, useRef } from 'react'
+import "./index.css";
 
 interface ISearchProps {
     value: string

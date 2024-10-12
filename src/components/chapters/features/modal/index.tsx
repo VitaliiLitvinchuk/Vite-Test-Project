@@ -1,6 +1,12 @@
 import React, { useCallback, useMemo } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 
+/**
+ * Validation rule
+ * @ {validationFor} - will replaced on name
+ * @property {function(string): boolean} func - function to validate value
+ * @property {string} message - error message if validation fails
+ */
 export interface IValidation {
     func: (value: string) => boolean
     message: string
@@ -23,7 +29,7 @@ interface IModalFormProps {
     handleSubmit: (data: Record<string, string>) => void
     handleClose: () => void
 }
-
+///////// magic
 const ModalForm = React.memo(({ show, title, handleClose, getter, setter, error, setError, handleSubmit, validation, names, fields }: IModalFormProps) => {
     type FieldsType = typeof fields[number];
     const typeValues = useMemo(() => {

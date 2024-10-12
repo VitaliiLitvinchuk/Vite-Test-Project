@@ -2,10 +2,9 @@ import { Table } from "react-bootstrap";
 import { useState, useMemo, useEffect, useContext, useRef, useCallback } from "react";
 import { ToDoListContext } from "../context";
 import TableData from "./row";
-import "./index.css";
 import Loader from "../../../../loader";
 import classNames from "classnames";
-import SearchInput from "./search";
+import SearchInput from "../../../features/search";
 
 const items = 10;
 const ToDoTable = () => {
