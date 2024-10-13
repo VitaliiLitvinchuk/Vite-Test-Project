@@ -16,6 +16,11 @@ export interface IModalFormError {
     [key: string]: string
 }
 
+export interface IFieldSpecifics {
+    title: string
+    type: "text" | "number" | "date"
+}
+
 interface IModalFormProps {
     show: boolean
     title: string
@@ -23,14 +28,14 @@ interface IModalFormProps {
     setter: React.Dispatch<React.SetStateAction<string>>[]
     error: IModalFormError
     validation: { [key: string]: IValidation[] }
-    names: string[]
+    specifics: IFieldSpecifics[]
     fields: readonly string[]
     setError: React.Dispatch<React.SetStateAction<IModalFormError>>
     handleSubmit: (data: Record<string, string>) => void
     handleClose: () => void
 }
 ///////// magic
-const ModalForm = React.memo(({ show, title, handleClose, getter, setter, error, setError, handleSubmit, validation, names, fields }: IModalFormProps) => {
+const ModalForm = React.memo(({ show, title, handleClose, getter, setter, error, setError, handleSubmit, validation, specifics, fields }: IModalFormProps) => {
     type FieldsType = typeof fields[number];
     const typeValues = useMemo(() => {
         return fields;
@@ -69,16 +74,15 @@ const ModalForm = React.memo(({ show, title, handleClose, getter, setter, error,
     }, [error, typeValues, setError, getter, fields, handleSubmit, close]);
 
     const handleEdit = useCallback((value: string, field: FieldsType, e: IModalFormError | null = null) => {
-        const fieldName = field;
         const fieldValidation = validation[field];
 
         if (fieldValidation) {
             for (const valid of fieldValidation) {
                 if (!valid.func(value)) {
                     if (e !== null) {
-                        e[fieldName] = valid.message.replace("{validationFor}", names[fields.indexOf(field)]);
+                        e[field] = valid.message.replace("{validationFor}", specifics[fields.indexOf(field)].title);
                     } else {
-                        setError({ ...error, [fieldName]: valid.message.replace("{validationFor}", names[fields.indexOf(field)]) });
+                        setError({ ...error, [field]: valid.message.replace("{validationFor}", specifics[fields.indexOf(field)].title) });
                     }
                     return false;
                 }
@@ -86,10 +90,10 @@ const ModalForm = React.memo(({ show, title, handleClose, getter, setter, error,
         }
 
         setter[fields.indexOf(field)](value);
-        setError({ ...error, [fieldName]: "" });
+        setError({ ...error, [field]: "" });
 
         return true;
-    }, [validation, fields, setter, setError, error, names]);
+    }, [validation, fields, setter, setError, error, specifics]);
 
     return (
         <Modal show={show} onHide={close}>
@@ -99,11 +103,11 @@ const ModalForm = React.memo(({ show, title, handleClose, getter, setter, error,
             <Form onSubmit={submit}>
                 <Modal.Body>
                     {
-                        names.map((name, index) => (
-                            <Form.Group key={name}>
-                                <Form.Label htmlFor={name}>{name}</Form.Label>
-                                <Form.Control id={name}
-                                    type="text"
+                        specifics.map((specific, index) => (
+                            <Form.Group key={specific.title}>
+                                <Form.Label htmlFor={specific.title}>{specific.title}</Form.Label>
+                                <Form.Control id={specific.title}
+                                    type={specific.type}
                                     defaultValue={getter[index]}
                                     onBlur={(e: React.FocusEvent<HTMLInputElement>) => handleEdit(e.target.value, fields[index])}
                                 />

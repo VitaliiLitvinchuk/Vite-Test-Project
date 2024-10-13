@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction, useEffect, useMemo, useState } from "react";
 import { IPhoneNumber } from "../types";
 import ModalForm, { IModalFormError, IValidation } from '../../../features/modal/index';
+import { IFieldSpecifics } from '../../../features/modal/index';
 
 interface IPhoneWorkerModalProps {
     show: boolean
@@ -16,7 +17,7 @@ interface IErrorType extends IModalFormError {
     phone: string
 }
 
-const Fields = ['firstName', 'lastName', 'phone'] as const;
+const fields = ['firstName', 'lastName', 'phone'] as const;
 
 const validation = {
     firstName: [{ func: (value: string) => value.trim().length > 0, message: "The {validationFor} is required" }] as IValidation[],
@@ -27,11 +28,11 @@ const validation = {
     ] as IValidation[],
 }
 
-const names = [
-    "First Name",
-    "Last Name",
-    "Phone"
-];
+const specifics = [
+    { title: "First Name" },
+    { title: "Last Name" },
+    { title: "Phone" },
+] as IFieldSpecifics[];
 
 const PhoneWorkerModal = ({ show, phone, title, handleClose, handleSubmit }: IPhoneWorkerModalProps) => {
     const [newFirstName, setNewFirstName] = useState<string>("");
@@ -67,8 +68,8 @@ const PhoneWorkerModal = ({ show, phone, title, handleClose, handleSubmit }: IPh
             setter={setter}
             error={error}
             validation={validation}
-            names={names}
-            fields={Fields}
+            specifics={specifics}
+            fields={fields}
             handleClose={handleClose}
             setError={setError as Dispatch<SetStateAction<IModalFormError>>}
             handleSubmit={(e) => handleSubmit({ ...phone, ...e as unknown as IPhoneNumber })} />

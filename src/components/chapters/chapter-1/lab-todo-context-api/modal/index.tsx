@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useEffect, useMemo, useState } from "react";
 import { IChapterLab2ToDo } from "../../types";
-import ModalForm, { IModalFormError, IValidation } from "../../../features/modal";
+import ModalForm, { IFieldSpecifics, IModalFormError, IValidation } from "../../../features/modal";
 
 interface IToDoWorkerModalProps {
     show: boolean
@@ -14,15 +14,15 @@ interface IErrorType extends IModalFormError {
     title: string
 }
 
-const Fields = ['title'] as const;
+const fields = ['title'] as const;
 
 const validation = {
     title: [{ func: (value: string) => value.trim().length > 0, message: "The {validationFor} is required" }] as IValidation[],
 }
 
-const names = [
-    "Title",
-];
+const specifics = [
+    { title: "Title" },
+] as IFieldSpecifics[];
 
 const ToDoWorkerModal = ({ show, todo, title, handleClose, handleSubmit }: IToDoWorkerModalProps) => {
     const [newTitle, setNewTitle] = useState<string>("");
@@ -48,8 +48,8 @@ const ToDoWorkerModal = ({ show, todo, title, handleClose, handleSubmit }: IToDo
             setter={setter}
             error={error}
             validation={validation}
-            names={names}
-            fields={Fields}
+            specifics={specifics}
+            fields={fields}
             handleClose={handleClose}
             setError={setError as Dispatch<SetStateAction<IModalFormError>>}
             handleSubmit={(e) => handleSubmit({ ...todo, ...e as unknown as IChapterLab2ToDo })} />
