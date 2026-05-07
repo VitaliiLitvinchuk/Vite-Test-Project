@@ -1,0 +1,27 @@
+/* A11y Panel specific styling, not global a11y styles */
+.a11y-panel {
+  z-index: 1050;
+}
+
+.a11y-panel .btn-close {
+  box-sizing: content-box;
+  width: 1em;
+  height: 1em;
+  padding: .25em .25em;
+  color: #000;
+  border: 0;
+  border-radius: .375rem;
+  opacity: .5;
+}
+
+.a11y-panel .btn-close:focus {
+  outline: 0;
+  box-shadow: 0 0 0 .25rem rgba(13, 110, 253, .25);
+  opacity: 1;
+}
+
+.a11y-panel .btn-close:hover {
+  color: #000;
+  text-decoration: none;
+  opacity: .75;
+}

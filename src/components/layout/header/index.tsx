@@ -1,12 +1,16 @@
 import { Container, Nav, NavDropdown, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { routes } from "../../../routes";
+import { useA11yStore } from "../../../store/a11yStore";
+import { Button } from "react-bootstrap";
 
 const symbolsLimit = 25;
 const Limiter = (x: string)
     : string => x.length > symbolsLimit ? `${x.slice(0, symbolsLimit)}...` : x;
 
 const Header = () => {
+    const toggleA11yPanel = useA11yStore(state => state.togglePanel);
+
     return (
         <>
             <Navbar bg="dark" data-bs-theme="dark">
@@ -35,6 +39,15 @@ const Header = () => {
                             )
                         }
                     </Nav>
+                    <Button 
+                        variant="outline-light" 
+                        onClick={toggleA11yPanel}
+                        aria-label="Відкрити панель доступності"
+                        className="ms-auto"
+                    >
+                        <i className="fa fa-eye me-2" aria-hidden="true"></i>
+                        Доступність
+                    </Button>
                 </Container>
             </Navbar>
         </>

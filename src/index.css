@@ -6,3 +6,87 @@
   padding: 0;
   margin: 0;
 }
+
+:root {
+  --a11y-font-size: 1rem;
+  --a11y-line-height: 1.5;
+  --a11y-letter-spacing: 0em;
+  --a11y-text-align: initial;
+  --a11y-text-transform: none;
+}
+
+html {
+  font-size: var(--a11y-font-size) !important;
+}
+
+body {
+  line-height: var(--a11y-line-height) !important;
+  letter-spacing: var(--a11y-letter-spacing) !important;
+  text-align: var(--a11y-text-align) !important;
+  text-transform: var(--a11y-text-transform) !important;
+  transition: all 0.3s ease;
+}
+
+/* High Contrast (Light Theme) */
+html.a11y-high-contrast {
+  --bs-body-bg: #ffffff;
+  --bs-body-color: #000000;
+  --bs-primary: #0000ee;
+  --bs-link-color: #0000ee;
+  background-color: #ffffff !important;
+  color: #000000 !important;
+}
+html.a11y-high-contrast * {
+  border-color: #000000 !important;
+}
+
+/* Dark Contrast (Dark Theme) */
+html.a11y-dark-contrast {
+  --bs-body-bg: #000000;
+  --bs-body-color: #ffffff;
+  --bs-primary: #ffff00;
+  --bs-link-color: #ffff00;
+  background-color: #000000 !important;
+  color: #ffffff !important;
+}
+html.a11y-dark-contrast * {
+  border-color: #ffffff !important;
+}
+
+/* Invert Colors */
+html.a11y-invert-colors {
+  filter: invert(100%) hue-rotate(180deg) !important;
+}
+html.a11y-invert-colors img, 
+html.a11y-invert-colors video {
+  filter: invert(100%) hue-rotate(180deg) !important;
+}
+
+/* Saturation */
+html.a11y-saturation-high { filter: saturate(200%) !important; }
+html.a11y-saturation-low { filter: saturate(50%) !important; }
+html.a11y-saturation-desaturate { filter: saturate(0%) !important; }
+
+/* Monochrome */
+html.a11y-monochrome {
+  filter: grayscale(100%) !important;
+}
+
+/* Highlight Links */
+html.a11y-highlight-links a {
+  text-decoration: underline !important;
+  background-color: #ffeb3b !important;
+  color: #000 !important;
+  font-weight: bold !important;
+}
+
+/* Big Cursor */
+html.a11y-big-cursor, html.a11y-big-cursor * {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path d="M0 0l11 32 4-11 11-4z" fill="black" stroke="white" stroke-width="2"/></svg>'), auto !important;
+}
+
+/* Pause Animations */
+html.a11y-pause-animations * {
+  animation: none !important;
+  transition: none !important;
+}
