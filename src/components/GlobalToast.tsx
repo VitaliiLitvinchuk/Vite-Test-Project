@@ -21,7 +21,7 @@ const GlobalToast: React.FC = () => {
                 <Toast.Header>
                     <strong className="me-auto">Сповіщення</strong>
                 </Toast.Header>
-                <Toast.Body className={variant === 'dark' ? 'text-white' : ''}>
+                <Toast.Body>
                     {message}
                 </Toast.Body>
             </Toast>

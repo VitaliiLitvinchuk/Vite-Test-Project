@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useLocation, matchRoutes } from 'react-router-dom';
-import rootPath, { routes } from '../routes';
+import { routes } from '../routes';
 
 // Flatten the custom routes array into react-router compatible RouteObject format
 // to use matchRoutes for title resolving
