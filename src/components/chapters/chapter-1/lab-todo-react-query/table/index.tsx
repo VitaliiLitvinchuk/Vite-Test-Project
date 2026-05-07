@@ -105,7 +105,7 @@ const ToDoTable = () => {
                         <th style={{ width: "10%" }}>User id</th>
                         <th style={{ width: "10%" }}>Task id</th>
                         <th style={{ width: "55%" }}>
-                            <input type="text" className="form-control" placeholder="Filter by title" onChange={handleFilter} />
+                            <input type="text" className="form-control" placeholder="Filter by title" aria-label="Filter by title" onChange={handleFilter} />
                         </th>
                         <th style={{ width: "10%" }}>Completed</th>
                         <th style={{ width: "15%" }}></th>

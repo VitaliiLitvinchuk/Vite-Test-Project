@@ -27,7 +27,8 @@ const SearchInput = ({ value, setValue }: ISearchProps) => {
                     defaultValue={value}
                     type="text"
                     className="search-input bg-transparent w-100 border-0 p-0 text-dark"
-                    placeholder="Filter by title" />
+                    placeholder="Filter by title"
+                    aria-label="Filter by title" />
             </div>
             <div
                 ref={filterIcon}

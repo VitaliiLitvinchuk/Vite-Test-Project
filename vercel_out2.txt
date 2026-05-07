@@ -1,0 +1,86 @@
+Retrieving project…
+The `name` property in vercel.json is deprecated (https://vercel.link/name-prop)
+Deploying vitaliis-projects-2c3f0258/vite-test-project-pr12
+Uploading [--------------------] (0.0B/5.1KB)
+Uploading [=============-------] (3.5KB/5.1KB)
+Uploading [====================] (5.1KB/5.1KB)
+Inspect: https://vercel.com/vitaliis-projects-2c3f0258/vite-test-project-pr12/87NVjGUhZtQBAnDM53CLsoomTfN3 [3s]
+Production: https://vite-test-project-pr12-h3ztod699-vitaliis-projects-2c3f0258.vercel.app [3s]
+https://vite-test-project-pr12-h3ztod699-vitaliis-projects-2c3f0258.vercel.appBuilding...
+Building: Running build in Washington, D.C., USA (East) – iad1
+Building: Build machine configuration: 2 cores, 8 GB
+Building: Retrieving list of deployment files...
+Building: Previous build caches not available.
+Building: Previous build caches not available.
+Building: Downloading 94 deployment files...
+Building: Running "vercel build"
+Building: Vercel CLI 51.6.1
+Building: Installing dependencies...
+Building: npm warn deprecated sourcemap-codec@1.4.8: Please use @jridgewell/sourcemap-codec instead
+Building: npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
+Building: npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+Building: added 539 packages in 7s
+Building: 117 packages are looking for funding
+Building: run `npm fund` for details
+Building: Running "npm run build"
+Building: > vite-project@0.0.0 build
+Building: > tsc -b && vite build
+Building: vite v5.4.3 building for production...
+Building: transforming...
+Building: ✓ 534 modules transformed.
+Building: rendering chunks...
+Building: computing gzip size...
+Building: dist/registerSW.js                                0.13 kB
+Building: dist/manifest.webmanifest                         0.18 kB
+Building: dist/index.html                                   0.57 kB │ gzip:   0.35 kB
+Building: dist/assets/react-CHdo91hT.svg                    4.13 kB │ gzip:   2.05 kB
+Building: dist/assets/fontawesome-webfont-B-jkhYfk.woff2   77.16 kB
+Building: dist/assets/fontawesome-webfont-CDK5bt4p.woff    98.02 kB
+Building: dist/assets/fontawesome-webfont-CQDK8MU3.ttf    165.55 kB
+Building: dist/assets/fontawesome-webfont-G5YE5S7X.eot    165.74 kB
+Building: dist/assets/fontawesome-webfont-D13rzr4g.svg    444.38 kB │ gzip: 134.19 kB
+Building: dist/assets/index-BOiRXIO-.css                    0.16 kB │ gzip:   0.14 kB
+Building: dist/assets/index-BAiLnaJD.css                  262.31 kB │ gzip:  38.59 kB
+Building: dist/assets/index-D5dfnw0V.js                     0.12 kB │ gzip:   0.13 kB
+Building: dist/assets/index-BPtXS8Vk.js                     0.12 kB │ gzip:   0.14 kB
+Building: dist/assets/index-B4RAU6Qo.js                     0.13 kB │ gzip:   0.14 kB
+Building: dist/assets/index-DlwnRmMS.js                     0.13 kB │ gzip:   0.14 kB
+Building: dist/assets/index-Bei9u4TH.js                     0.14 kB │ gzip:   0.15 kB
+Building: dist/assets/index-CG85eGkT.js                     0.14 kB │ gzip:   0.15 kB
+Building: dist/assets/index-DyowfCdM.js                     0.14 kB │ gzip:   0.14 kB
+Building: dist/assets/index-DSkRa8FL.js                     0.14 kB │ gzip:   0.14 kB
+Building: dist/assets/index-BAgDyn2l.js                     0.14 kB │ gzip:   0.14 kB
+Building: dist/assets/index-BLNZyQNG.js                     0.16 kB │ gzip:   0.16 kB
+Building: dist/assets/index-BppRWjTM.js                   102.50 kB │ gzip:  34.16 kB
+Building: dist/assets/index-C6jtpmMH.js                   283.98 kB │ gzip:  96.34 kB
+Building: ✓ built in 2.91s
+Building: ✨ [vite-plugin-compression]:algorithm=gzip - compressed file successfully:
+Building: dist//vercel/path0/assets/index-BAiLnaJD.css.gz                 257.49kb / gzip: 37.43kb
+Building: dist//vercel/path0/assets/index-BppRWjTM.js.gz                  100.09kb / gzip: 33.33kb
+Building: dist//vercel/path0/assets/index-C6jtpmMH.js.gz                  277.33kb / gzip: 93.99kb
+Building: dist//vercel/path0/assets/fontawesome-webfont-D13rzr4g.svg.gz   433.96kb / gzip: 130.23kb
+Building: ✨ [vite-plugin-compression]:algorithm=brotliCompress - compressed file successfully:
+Building: dist//vercel/path0/assets/index-BppRWjTM.js.br                  100.09kb / brotliCompress: 29.36kb
+Building: dist//vercel/path0/assets/index-BAiLnaJD.css.br                 257.49kb / brotliCompress: 27.92kb
+Building: dist//vercel/path0/assets/index-C6jtpmMH.js.br                  277.33kb / brotliCompress: 82.13kb
+Building: dist//vercel/path0/assets/fontawesome-webfont-D13rzr4g.svg.br   433.96kb / brotliCompress: 108.37kb
+Building: Browserslist: caniuse-lite is outdated. Please run:
+Building: npx update-browserslist-db@latest
+Building: Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Building: PWA v0.20.5
+Building: mode      generateSW
+Building: precache  17 entries (637.05 KiB)
+Building: files generated
+Building: dist/sw.js
+Building: dist/workbox-3e911b1d.js
+Building: Build Completed in /vercel/output [18s]
+Building: Deploying outputs...
+Building: Deployment completed
+Building: Creating build cache...
+[2K[1A[2K[GProduction: https://vite-test-project-pr12-h3ztod699-vitaliis-projects-2c3f0258.vercel.app [30s]
+Completing...
+Aliased: https://vite-test-project-pr12.vercel.app [30s]
+
+Common next commands:
+- `vercel inspect vite-test-project-pr12-h3ztod699-vitaliis-projects-2c3f0258.vercel.app --logs`
+- `vercel redeploy vite-test-project-pr12-h3ztod699-vitaliis-projects-2c3f0258.vercel.app`

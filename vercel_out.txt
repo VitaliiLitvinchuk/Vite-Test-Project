@@ -1,0 +1,27 @@
+Retrieving project…
+The `name` property in vercel.json is deprecated (https://vercel.link/name-prop)
+Deploying vitaliis-projects-2c3f0258/vite-test-project-pr12
+Uploading [--------------------] (0.0B/163B)
+Uploading [====================] (163.0B/163B)
+Inspect: https://vercel.com/vitaliis-projects-2c3f0258/vite-test-project-pr12/7hvD4HUuV88CruSUE1pJFtrPke5z [2s]
+Production: https://vite-test-project-pr12-2xqqfgzb9-vitaliis-projects-2c3f0258.vercel.app [2s]
+https://vite-test-project-pr12-2xqqfgzb9-vitaliis-projects-2c3f0258.vercel.appBuilding...
+Building...
+Building: Running build in Washington, D.C., USA (East) – iad1
+Building: Build machine configuration: 2 cores, 8 GB
+Building: Retrieving list of deployment files...
+Building: Previous build caches not available.
+Building: Downloading 93 deployment files...
+Building: Running "vercel build"
+Building: Vercel CLI 51.6.1
+Building: Installing dependencies...
+Building: npm warn deprecated sourcemap-codec@1.4.8: Please use @jridgewell/sourcemap-codec instead
+Building: npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
+Building: npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+Building: added 539 packages in 6s
+Building: 117 packages are looking for funding
+Building: run `npm fund` for details
+Building: Running "npm run build"
+Building: > vite-project@0.0.0 build
+Building: > tsc -b && vite build
+Error: Command "npm run build" exited with 2
